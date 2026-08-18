@@ -84,7 +84,8 @@ def test_named_segment():
 
 def test_four_field_clears_name():
     r = _tree({"g.js": "", "g.js.map": {"version": 3, "sources": ["s.js"], "names": ["foo"], "mappings": "AAAAA,IAAI"}, "s.js": ""})
-    assert _hit(r, "g.js", 0, 4)["name"] is None
+    got = _hit(r, "g.js", 0, 4)
+    assert got["source"].endswith("s.js") and got["name"] is None
 
 
 def test_blank_generated_line():
